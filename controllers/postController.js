@@ -46,9 +46,23 @@ exports.getPostsById = async (req,res) => {
     }
 }
 
+exports.getPostById = async (req,res) => {
+    try {
+        const { id } = req.params;
+        const post = await Post.findById({ id });
+    
+        res.status(200).json({ post });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+}
+
 exports.getAdminPost = async (req,res) => {
     try {
-        const post = await Post.findOne({ typeOfUser : 'admin'}).sort({ createdAt: -1 });
+        const admin = await User.findOne({ typeOfUser : 'admin'});
+
+        const post = await Post.findOne({ userId : admin._id});
     
         res.status(200).json({ post });
     } catch (error) {

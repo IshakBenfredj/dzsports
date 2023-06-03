@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const PORT = process.env.PORT || 4000;
 
 
 // Import Routes
@@ -50,7 +50,7 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
         console.log('connected to db & listening on port',process.env.PORT)
     })
 }).catch ((error) => {
